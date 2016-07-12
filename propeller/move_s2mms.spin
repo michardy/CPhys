@@ -12,4 +12,7 @@ PUB start
   repeat
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
-    s2.move_timed_mms(10.00,0.00,1.00)
+    s2.move_timed_mms(8.0,0.0,2.0)
+    s2.move_timed_mms(-4.0,0.0,4.0)
+    s2.move_timed_mms(8.0,0.0,2.0)
+    s2.move_timed_mms(-4.0,0.0,4.0)

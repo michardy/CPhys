@@ -93,7 +93,7 @@ def S2tbSend_To_S2(commands):
     #if (EEPROM):
         #prop.DownloadToPropeller(0,3) #store in EEPROM and run
     #else:
-    prop.DownloadToPropeller(0,1)  #store in RAM and run
+    prop.DownloadToPropeller(0,3)  #store in RAM and run
     prop.FinalizePropellent
  
 #S2tbSend_To_S2()

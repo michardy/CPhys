@@ -116,3 +116,29 @@ def end_program(list_name=commands):
 #listx = []
 #forward(6.00, 0.00, 2.00, listx)
 #end_program(listx)
+
+##=======[ License ]===========================================================
+##
+##┌──────────────────────────────────────────────────────────────────────────────────────┐
+##│                            TERMS OF USE: Software License                            │                                                            
+##├──────────────────────────────────────────────────────────────────────────────────────┤
+##│The purchase of one copy of S2mmsKinematicGUI and it's dependent files S2Curve.py,    │
+##│S2graph.py, S2Segment.py, S2StatusBar.py, S2ToolBar.py, S2VecAdd.py and     s2mms.spin│
+##│entitles you to install it on every computer in your school or, for                   │
+##│post-secondary institutions, department. Installation to local machines over a network│
+##│is allowed. Purchasers are also permitted to distribute these programs to their       │
+##│students and instructors for home use. The license is limited to a single campus if   │
+##│your institution has multiple campuses.                                               │   
+##│                                                                                      │
+##│The above copyright notice and this permission notice shall be included in all copies │
+##│or substantial portions of the Software.                                              │
+##│                                                                                      │
+##│THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,   │
+##│INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A         │
+##│PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT    │
+##│HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF  │
+##│CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE  │
+##│OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         │
+##└──────────────────────────────────────────────────────────────────────────────────────┘
+##
+

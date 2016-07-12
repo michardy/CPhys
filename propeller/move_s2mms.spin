@@ -6,7 +6,7 @@ _xinfreq      = 5_000_000
 OBJ
 
   s2mms : "s2mms"
-  s2 : "s2"
+  s2 : "S2"
 
 PUB start
   s2mms.start_motors

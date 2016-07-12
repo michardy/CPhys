@@ -80,9 +80,9 @@ def move(speed, time, list_name=commands): #move adds an item to list_name
     command += ")\n"
     list_name += [command]
 
-def pause(time, list_name=commands): #time is in tenths of a second
+def pause(time, list_name=commands): #time is in seconds
     command = "s2.delay_tenths("
-    command += str(time)
+    command += str(time*10)
     command += ")\n"
     list_name += [command]
 

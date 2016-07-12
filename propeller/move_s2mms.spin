@@ -14,3 +14,5 @@ PUB start
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
     s2mms.move_timed_mms(6.0,0.00,5.0)
+    s2.delay_tenths(30)
+    s2mms.move_timed_mms(-6.0,0.00,5.0)

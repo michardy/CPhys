@@ -4,7 +4,7 @@ from bayS2mms import commands
 from bayS2mms import pause
 
 move(6.00, 5.00)
-pause(30)
+pause(25)
 move(-6.00, 5.00)
 
 end_program()

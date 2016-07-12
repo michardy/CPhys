@@ -46,9 +46,10 @@ def S2tbSend_To_S2(commands):
     ms2.write("_clkmode      = xtal1 + pll16x\n")
     ms2.write("_xinfreq      = 5_000_000\n\n")
     ms2.write("OBJ\n\n")
-    ms2.write('  s2 : "s2mms"\n\n')
+    ms2.write('  s2mms : "s2mms"\n')
+    ms2.write('  s2 : "s2"\n\n')
     ms2.write('PUB start\n')
-    ms2.write('  s2.start_motors\n')
+    ms2.write('  s2mms.start_motors\n')
     ms2.write('  repeat\n')
     ms2.write('    waitcnt(clkfreq + cnt)\n')
     ms2.write('    waitpne(|< s2#BUTTON, |< s2#BUTTON,0)\n')
@@ -72,7 +73,7 @@ def S2tbSend_To_S2(commands):
 commands = []
 
 def move(speed, time, list_name=commands): #move adds an item to list_name
-    command = "s2.move_timed_mms("
+    command = "s2mms.move_timed_mms("
     command += str(speed)
     command += ",0.00,"
     command += str(time)

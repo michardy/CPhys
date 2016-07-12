@@ -2,6 +2,6 @@ from bayS2mms import move
 from bayS2mms import end_program
 from bayS2mms import commands
 
-move(6.00, 20.00)
+move(6.00, 5.00)
 
 end_program()

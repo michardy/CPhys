@@ -5,11 +5,12 @@ _xinfreq      = 5_000_000
 
 OBJ
 
-  s2 : "s2mms"
+  s2mms : "s2mms"
+  s2 : "s2"
 
 PUB start
-  s2.start_motors
+  s2mms.start_motors
   repeat
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
-    s2.move_timed_mms(6.0,0.00,20.0)
+    s2mms.move_timed_mms(6.0,0.00,5.0)

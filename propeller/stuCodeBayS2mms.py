@@ -17,16 +17,16 @@ from bayS2mms import commands                               #
 #  Ok: so suppose you want the robot move at a speed v for a time
 #  interval Dt. Then, in the space below, just type the following:
 #
-#         move(v, 0.00, Dt)
+#         move(v, Dt)
 #
 #  Negative values for v will move the robot backwards at speed -v.
 #  Note you can include any number of these move statements, each
 #  on its own line, as well as any other Python code.
 
-move(8.00, 0.00, 2.00)
-move(-4.00, 0.00, 4.00)
-move(8.00, 0.00, 2.00)
-move(-4.00, 0.00, 4.00)
+move(8.00, 2.00)
+move(-4.00, 4.00)
+move(8.00, 2.00)
+move(-4.00, 4.00)
 
 #
 #############################################################

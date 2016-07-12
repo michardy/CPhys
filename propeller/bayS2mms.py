@@ -47,7 +47,7 @@ def S2tbSend_To_S2(commands):
     ms2.write("_xinfreq      = 5_000_000\n\n")
     ms2.write("OBJ\n\n")
     ms2.write('  s2mms : "s2mms"\n')
-    ms2.write('  s2 : "S2"\n\n')
+    ms2.write('  s2 : "s2"\n\n')
     ms2.write('PUB start\n')
     ms2.write('  s2mms.start_motors\n')
     ms2.write('  repeat\n')

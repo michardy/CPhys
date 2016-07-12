@@ -71,7 +71,7 @@ def S2tbSend_To_S2(commands):
      
 commands = []
 
-def move(speed, acceleration, time, list_name=commands): #forward adds an item to list_name
+def move(speed, acceleration, time, list_name=commands): #move adds an item to list_name
     command = "s2.move_timed_mms("
     command += str(speed)
     command += ","

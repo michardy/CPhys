@@ -25,9 +25,10 @@ PUB start
     ObstacleThld := OBSTACLE_THLD
   CoinFlip := s2.light_sensor_raw(s2#LEFT) << 24 | s2.light_sensor_raw(s2#CENTER) << 12 | s2.light_sensor_raw(s2#RIGHT)
   Self := cogid
-  cognew(Obstacler, estack)
+  cognew(Obstacler, @stack)
   s2mms.start_motors
   \Green
+  repeat
 
 PUB Obstacler | side
 
@@ -46,7 +47,7 @@ PUB Green
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
     s2mms.move_timed_mms(6.0,0.00,4.0)
-    s2.ReadObstacle
+    ReadObstacle
     if (LeftObstacle == 1 and RightObstacle == 1)
       s2mms.move_timed_mms(-6.0,0.00,2.0)
     s2mms.move_timed_mms(6.0,0.00,3.0)

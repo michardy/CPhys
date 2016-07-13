@@ -3,18 +3,13 @@ from bayS2mms import end_program
 from bayS2mms import commands
 from bayS2mms import get_line_number
 from bayS2mms import spaces
+from bayS2mms import obstacle
 
-#move(6.00, 5.00)
-#move(0.00, 5.00)
-#move(-6.00, 5.00)
+move(6.00, 2.00, commands, "kaptesting")
+if obstacle():
+    move(-6.00, 2.00, commands, "kaptesting")
+move(6.00, 3.00, commands, "kaptesting")
 
-#end_program()
+end_program()
 
-a = 1
 
-if True:
-    a = 2
-
-print(spaces("a = 2", "kaptesting"))
-print(spaces("if True", "kaptesting"))
-print(a)

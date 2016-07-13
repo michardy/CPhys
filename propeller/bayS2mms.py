@@ -55,6 +55,8 @@ def S2tbSend_To_S2(commands):
     #ms2.write('    ObstacleThld := s2.get_obstacle_threshold\n')
     #ms2.write('  else\n')
     #ms2.write('    ObstacleThld := OBSTACLE_THLD\n')
+    #ms2.write('  CoinFlip := s2.light_sensor_raw(s2#LEFT) << 24 | s2.light_sensor_raw(s2#CENTER) << 12 | s2.light_sensor_raw(s2#RIGHT)\n')
+    #ms2.write('  cognew(Obstacler, estack)\n')
     ms2.write('  s2mms.start_motors\n')
     ms2.write('  repeat\n')
     ms2.write('    waitcnt(clkfreq + cnt)\n')
@@ -93,11 +95,11 @@ def spaces(phrase, file_name="stuCodeBayS2mms.py"):
 
 def move(speed, time, list_name=commands, file_name="stuCodeBayS2mms.py"): #move adds an item to list_name
     command = ""
-    string = "move(" + str(speed) + str(time) + ")"
+    string = "move(" + str(speed) + "0, " + str(time)
     if spaces(string, file_name) != 0:
         for i in range(spaces(string, file_name)//2):
             command += " "
-    command = "s2mms.move_timed_mms("
+    command += "s2mms.move_timed_mms("
     command += str(speed)
     command += ",0.00,"
     command += str(time)
@@ -107,11 +109,12 @@ def move(speed, time, list_name=commands, file_name="stuCodeBayS2mms.py"): #move
 def pause(time, list_name=commands):
     move(0.00, time, list_name)
 
-def test_for_obstacle(list_name=commands):
-    command = "ReadObstacle\n"
+def obstacle(list_name=commands):
+    command = "s2.ReadObstacle\n"
     list_name += [command]
     command2 = "if (LeftObstacle == 1 and RightObstacle == 1)\n"
     list_name += [command2]
+    return True
 
 def end_program(list_name=commands):
     S2tbSend_To_S2(list_name)

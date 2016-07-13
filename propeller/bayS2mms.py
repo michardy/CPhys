@@ -78,15 +78,17 @@ def S2tbSend_To_S2(commands):
      
 commands = []
 
-
-with open("stuCodeBayS2mms.py") as afile:
-    line_lengths = [len(line) - len(line.lstrip()) for line in afile]
-
 def get_line_number(phrase, file_name):
     with open(file_name) as f:
         for i, line in enumerate(f, 1):
             if phrase in line:
                 return i
+
+def spaces(phrase, file_name="stuCodeBayS2mms.py"):
+    line_number = get_line_number(phrase, file_name)
+    with open(file_name) as afile:
+        line_lengths = [len(line) - len(line.lstrip()) for line in afile]
+    spaces = line_lengths[line_number]
 
 def move(speed, time, list_name=commands): #move adds an item to list_name
     command = "s2mms.move_timed_mms("

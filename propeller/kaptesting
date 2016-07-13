@@ -1,7 +1,8 @@
 from bayS2mms import move
 from bayS2mms import end_program
 from bayS2mms import commands
-from bayS2mms import line_lengths
+from bayS2mms import get_line_number
+from bayS2mms import spaces
 
 #move(6.00, 5.00)
 #move(0.00, 5.00)
@@ -9,4 +10,11 @@ from bayS2mms import line_lengths
 
 #end_program()
 
-print(line_lengths)
+a = 1
+
+if True:
+    a = 2
+
+print(spaces("a = 2", "kaptesting"))
+print(spaces("if True", "kaptesting"))
+print(a)

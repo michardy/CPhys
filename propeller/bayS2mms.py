@@ -88,16 +88,22 @@ def spaces(phrase, file_name="stuCodeBayS2mms.py"):
     line_number = get_line_number(phrase, file_name)
     with open(file_name) as afile:
         line_lengths = [len(line) - len(line.lstrip()) for line in afile]
-    spaces = line_lengths[line_number]
+    spaces = line_lengths[line_number - 1]
+    return spaces
 
-def move(speed, time, list_name=commands): #move adds an item to list_name
+def move(speed, time, list_name=commands, file_name="stuCodeBayS2mms.py"): #move adds an item to list_name
+    command = ""
+    string = "move(" + str(speed) + str(time) + ")"
+    if spaces(string, file_name) != 0:
+        for i in range(spaces(string, file_name)//2):
+            command += " "
     command = "s2mms.move_timed_mms("
     command += str(speed)
     command += ",0.00,"
     command += str(time)
     command += ")\n"
     list_name += [command]
-
+        
 def pause(time, list_name=commands):
     move(0.00, time, list_name)
 

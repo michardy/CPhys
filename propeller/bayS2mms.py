@@ -51,6 +51,10 @@ def S2tbSend_To_S2(commands):
     ms2.write('PUB start\n')
     ms2.write('  s2.start\n')
     ms2.write('  s2.start_motors\n')
+    #ms2.write('  if (s2.get_obstacle_threshold <> s2#DEFAULT_OBSTACLE_THLD)\n')
+    #ms2.write('    ObstacleThld := s2.get_obstacle_threshold\n')
+    #ms2.write('  else\n')
+    #ms2.write('    ObstacleThld := OBSTACLE_THLD\n')
     ms2.write('  s2mms.start_motors\n')
     ms2.write('  repeat\n')
     ms2.write('    waitcnt(clkfreq + cnt)\n')
@@ -74,6 +78,16 @@ def S2tbSend_To_S2(commands):
      
 commands = []
 
+
+with open("stuCodeBayS2mms.py") as afile:
+    line_lengths = [len(line) - len(line.lstrip()) for line in afile]
+
+def get_line_number(phrase, file_name):
+    with open(file_name) as f:
+        for i, line in enumerate(f, 1):
+            if phrase in line:
+                return i
+
 def move(speed, time, list_name=commands): #move adds an item to list_name
     command = "s2mms.move_timed_mms("
     command += str(speed)
@@ -84,6 +98,12 @@ def move(speed, time, list_name=commands): #move adds an item to list_name
 
 def pause(time, list_name=commands):
     move(0.00, time, list_name)
+
+def test_for_obstacle(list_name=commands):
+    command = "ReadObstacle\n"
+    list_name += [command]
+    command2 = "if (LeftObstacle == 1 and RightObstacle == 1)\n"
+    list_name += [command2]
 
 def end_program(list_name=commands):
     S2tbSend_To_S2(list_name)

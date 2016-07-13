@@ -82,6 +82,9 @@ def move(speed, time, list_name=commands): #move adds an item to list_name
     command += ")\n"
     list_name += [command]
 
+def pause(time, list_name=commands):
+    move(0.00, time, list_name)
+
 def end_program(list_name=commands):
     S2tbSend_To_S2(list_name)
 

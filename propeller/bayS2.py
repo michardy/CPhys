@@ -126,8 +126,16 @@ def move(speed, time, list_name=commands, file_name="stuCodeBayS2.py"): #move ad
     command += ")\n"
     list_name += [command]
         
-def pause(time, list_name=commands):
-    move(0.00, time, list_name)
+def pause(time, list_name=commands, file_name="stuCodeBayS2.py"):
+    command = ""
+    string = "pause(" + str(time)
+    if spaces(string, file_name) != 0:
+        for i in range(spaces(string, file_name)//2):
+            command += " "
+    command += "MotorSet(0, 0, "
+    command += str(time*1000)
+    command += ")\n"
+    list_name += [command]
 
 def obstacle(list_name=commands):
     command = "ReadObstacle\n"

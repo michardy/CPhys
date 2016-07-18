@@ -148,7 +148,18 @@ def S2tbSend_To_S2(commands):
     ms2.write('      waitcnt(cnt + clkfreq / 10)\n')
     ms2.write('    pLeftMotor := LeftMotor\n')
     ms2.write('    pRightMotor := RightMotor\n')
-    ms2.write('    pMoveTime := MoveTime\n')
+    ms2.write('    pMoveTime := MoveTime\n\n')
+    ms2.write('PRI ReadObstacle | l, r\n\n')
+    ms2.write('  l := obstacle(s2#LEFT, ObstacleThld) & 1\n')
+    ms2.write('  r := obstacle(s2#RIGHT, ObstacleThld) & 1\n')
+    ms2.write('  if (l == LeftObstacle and r == RightObstacle)\n')
+    ms2.write('    ObstacleCount := (Obstaclecount + 1) <# 8\n')
+    ms2.write('  else\n')
+    ms2.write('    ObstacleCount := 1\n')
+    ms2.write('    LeftObstacle := l\n')
+    ms2.write('    RightObstacle := r\n\n')
+    ms2.write('PUB obstacle(side, threshold)\n\n')
+    ms2.write('  return obs[side]\n')
     ms2.write('\n')
     ms2.write("'---[End of Program]-----------------------------------------------------------\n\n")
     ms2.close()
@@ -193,7 +204,7 @@ def move(speed, time, list_name=commands, file_name="stuCodeBayS2.py"): #move ad
     command += ")\n"
     list_name += [command]
         
-def pause(time, list_name=commands, file_name="stuCodeBayS2.py"): #currently not working
+def pause(time, list_name=commands, file_name="stuCodeBayS2.py"): #currently not working, but I can't even get it to work using the s2 interface
     command = ""
     string = "pause(" + str(time)
     if spaces(string, file_name) != 0:
@@ -204,7 +215,7 @@ def pause(time, list_name=commands, file_name="stuCodeBayS2.py"): #currently not
     command += ")\n"
     list_name += [command]
 
-def stop(list_name=commands): #when this command is given everything will stop
+def stop(list_name=commands): #when this command is given everything should stop
     command = "s2.stop_now\n"
     list_name += [command]
 

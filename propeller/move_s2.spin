@@ -96,8 +96,10 @@ PUB FaultMonitor : value
 PUB Green
 
   MotorSet(128, 128, 5000)
-  MotorSet(-100, -100, 5000)
-  MotorSet(128, 128, 5000)
+  ReadObstacle
+  if (LeftObstacle == 1 and RightObstacle == 1)
+    MotorSet(-128, -128, 5000)
+  MotorSet(128, 128, 3000)
 
 '---[Set Motor Speeds]---------------------------------------------------------
 
@@ -116,6 +118,21 @@ PRI MotorSet(lmotor, rmotor, timer)
     pLeftMotor := LeftMotor
     pRightMotor := RightMotor
     pMoveTime := MoveTime
+
+PRI ReadObstacle | l, r
+
+  l := obstacle(s2#LEFT, ObstacleThld) & 1
+  r := obstacle(s2#RIGHT, ObstacleThld) & 1
+  if (l == LeftObstacle and r == RightObstacle)
+    ObstacleCount := (Obstaclecount + 1) <# 8
+  else
+    ObstacleCount := 1
+    LeftObstacle := l
+    RightObstacle := r
+
+PUB obstacle(side, threshold)
+
+  return obs[side]
 
 '---[End of Program]-----------------------------------------------------------
 

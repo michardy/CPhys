@@ -13,9 +13,10 @@ byte  Flag_green, Flag_yellow, Flag_orange, Flag_red, Flag_magenta, Flag_purple,
 
 OBJ
 
-  S2 : "s2"
+  s2 : "S2"
 
 PUB start
+
   s2.start
   s2.start_motors
   if (s2.get_obstacle_threshold <> s2#DEFAULT_OBSTACLE_THLD)
@@ -41,10 +42,9 @@ PUB Obstacler | side
       waitcnt(cnt + clkfreq / 8)
 
 PUB Green
-  repeat
-    waitcnt(clkfreq + cnt)
-    waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
-    MotorSet(128.0, 128.0, 5000)
-    MotorSet(0, 0, 5000)
-    MotorSet(-128.0, -128.0, 5000)
-    MotorSet(128.0, 128.0, 5000)
+
+  MotorSet(128, 128, 5000)
+  MotorSet(0, 0, 5000)
+  MotorSet(-128, -128, 5000)
+  MotorSet(128, 128, 5000)
+

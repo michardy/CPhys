@@ -52,8 +52,8 @@ def S2tbSend_To_S2(commands):
     ms2.write("byte LineThld, LeftLine, RightLine, LeftObstacle, RightObstacle, Self\n")
     ms2.write("byte  Flag_green, Flag_yellow, Flag_orange, Flag_red, Flag_magenta, Flag_purple, Flag_blue, Stalled, obs[3]\n\n")
     ms2.write("OBJ\n\n")
-    ms2.write('  S2 : "s2"\n\n')
-    ms2.write('PUB start\n')
+    ms2.write('  s2 : "S2"\n\n')
+    ms2.write('PUB start\n\n')
     ms2.write('  s2.start\n')
     ms2.write('  s2.start_motors\n')
     ms2.write('  if (s2.get_obstacle_threshold <> s2#DEFAULT_OBSTACLE_THLD)\n')
@@ -75,11 +75,11 @@ def S2tbSend_To_S2(commands):
     ms2.write('      obs[-(side == s2#OBS_TX_RIGHT) + 1] := ina[s2#OBS_RX] == 0\n')
     ms2.write('      dira[side]~\n')
     ms2.write('      waitcnt(cnt + clkfreq / 8)\n\n')
-    ms2.write('PUB Green\n')
-    ms2.write('  repeat\n')
-    ms2.write('    waitcnt(clkfreq + cnt)\n')
-    ms2.write('    waitpne(|< s2#BUTTON, |< s2#BUTTON,0)\n')
-    indent = '    '
+    ms2.write('PUB Green\n\n')
+    #ms2.write('  repeat\n')
+    #ms2.write('    waitcnt(clkfreq + cnt)\n')
+    #ms2.write('    waitpne(|< s2#BUTTON, |< s2#BUTTON,0)\n')
+    indent = '  '
 
     for command in commands:         
         ms2.write(indent + command)
@@ -113,7 +113,7 @@ def spaces(phrase, file_name="stuCodeBayS2.py"):
 
 def move(speed, time, list_name=commands, file_name="stuCodeBayS2.py"): #move adds an item to list_name
     command = ""
-    string = "move(" + str(speed) + "0, " + str(time)
+    string = "move(" + str(speed) + ", " + str(time)
     if spaces(string, file_name) != 0:
         for i in range(spaces(string, file_name)//2):
             command += " "
@@ -145,6 +145,8 @@ def obstacle(list_name=commands):
     return True
 
 def end_program(list_name=commands):
+    lenlist = len(list_name)
+    list_name[lenlist - 1] += '\n'
     S2tbSend_To_S2(list_name)
 
 ##=======[ License ]===========================================================

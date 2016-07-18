@@ -8,6 +8,6 @@ from bayS2 import commands
 
 move(128, 5, commands, "kaptestBayS2.py")
 #pause(5, commands, "kaptestBayS2.py")
-move(-128, 5, commands, "kaptestBayS2.py")
+move(-100, 5, commands, "kaptestBayS2.py")
 move(128, 5, commands, "kaptestBayS2.py")
 end_program()

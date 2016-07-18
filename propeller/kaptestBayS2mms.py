@@ -6,9 +6,7 @@ from bayS2mms import spaces
 from bayS2mms import obstacle
 
 move(6.00, 4.00, commands, "kaptestBayS2mms.py")
-if obstacle():
-    move(-6.00, 2.00, commands, "kaptestBayS2mms.py")
-move(6.00, 3.00, commands, "kaptestBayS2mms.py")
+move(-6.00, 3.00, commands, "kaptestBayS2mms.py")
 
 end_program()
 

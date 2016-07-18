@@ -1,30 +1,59 @@
+
+'S2 include code version 2015.07.08
+
+'---[Constants]----------------------------------------------------------------
+
 CON
 
-_clkmode      = xtal1 + pll16x
-_xinfreq      = 5_000_000
-OBSTACLE_THLD = 20
+  _clkmode      = xtal1 + pll16x
+  _xinfreq      = 5_000_000
+  EE_REFLIGHTS  = s2#EE_USER_AREA
+  LINE_THLD     = 50
+  BAR_THLD      = 32
+  OBSTACLE_THLD = 20
+  SPKR_VOL      = 35
+
+'---[Global Variables]---------------------------------------------------------
 
 VAR
 
-long CoinFlip, LeftMotor, RightMotor, MoveTime, pLeftMotor, pRightMotor, pMoveTime, FMStack[50], stack[30]
-byte  ResetCount, LineCount, ObstacleCount, StallCount, ObstacleThld
-byte LineThld, LeftLine, RightLine, LeftObstacle, RightObstacle, Self
-byte  Flag_green, Flag_yellow, Flag_orange, Flag_red, Flag_magenta, Flag_purple, Flag_blue, Stalled, obs[3]
+  long  CoinFlip, LeftMotor, RightMotor, MoveTime, pLeftMotor, pRightMotor, pMoveTime, FMStack[50], stack[30]
+  word  WheelSpace, FullCircle, SeqCounter
+  byte  LeftLight, CenterLight, RightLight, RefLights[3]
+  byte  ResetCount, LineCount, ObstacleCount, StallCount, ObstacleThld
+  byte  LineThld, LeftLine, RightLine, LeftObstacle, RightObstacle, Self
+  byte  Flag_green, Flag_yellow, Flag_orange, Flag_red, Flag_magenta, Flag_purple, Flag_blue, Stalled, obs[3]
+
+'---[Object Declaration]-------------------------------------------------------
 
 OBJ
 
-  s2 : "S2"
+  s2    : "S2" 
+
+'---[Start of Program]---------------------------------------------------------
 
 PUB start
 
   s2.start
   s2.start_motors
+  s2.start_tones
+  s2.button_mode(true, true)
+  s2.set_volume(SPKR_VOL)
+  s2.set_voices(s2#SAW, s2#SAW)
+  ResetCount := s2.reset_button_count
+  if (s2.get_line_threshold <> s2#DEFAULT_LINE_THLD)
+    LineThld := s2.get_line_threshold
+  else
+    LineThld := LINE_THLD
   if (s2.get_obstacle_threshold <> s2#DEFAULT_OBSTACLE_THLD)
     ObstacleThld := s2.get_obstacle_threshold
   else
     ObstacleThld := OBSTACLE_THLD
-  CoinFlip := s2.light_sensor_raw(s2#LEFT) << 24 | s2.light_sensor_raw(s2#CENTER) << 12 | s2.light_sensor_raw(s2#RIGHT)
+  waitcnt(cnt + 10_000_000)
+  CoinFlip :=  s2.light_sensor_raw(s2#LEFT) << 24 | s2.light_sensor_raw(s2#CENTER) << 12 | s2.light_sensor_raw(s2#RIGHT)
   Self := cogid
+  long[@WheelSpace] := s2.get_wheel_calibration
+  cognew(FaultMonitor, @FMStack)
   cognew(Obstacler, @stack)
   \Green
   repeat
@@ -41,9 +70,52 @@ PUB Obstacler | side
       dira[side]~
       waitcnt(cnt + clkfreq / 8)
 
+
+'---[Battery and Over-current Monitor Cog]-------------------------------------
+
+PUB FaultMonitor : value
+
+  value := $ffff
+  waitcnt(cnt + 80_000_000)
+  repeat
+    value <#= s2.get_adc_results(s2#ADC_VBAT)
+    if value > constant((700*2550)/(400*33))
+      s2.set_led(s2#POWER,s2#BLUE)
+    elseif value > constant((600*2550)/(400*33))
+      s2.set_led(s2#POWER,$20)
+    else
+      s2.set_led(s2#POWER,s2#BLINK_BLUE)
+    if s2.get_adc_results(s2#ADC_IMOT) > 210
+      cogstop(Self)
+      s2.stop_now
+      s2.set_leds(s2#BLINK_RED,s2#BLINK_RED,s2#BLINK_RED,s2#OFF)
+      repeat
+
+'---[Main Program: Green]------------------------------------------------------
+
 PUB Green
 
-  s2.wheels_now(128, 128, 5000)
-  s2.wheels_now(-128, -128, 5000)
-  s2.wheels_now(128, 128, 5000)
+  MotorSet(128, 128, 5000)
+  MotorSet(-100, -100, 5000)
+  MotorSet(128, 128, 5000)
+
+'---[Set Motor Speeds]---------------------------------------------------------
+
+PRI MotorSet(lmotor, rmotor, timer)
+
+  MoveTime := timer #> 0
+  LeftMotor := lmotor #> -256 <# 256
+  RightMotor := rmotor #> -256 <# 256
+  if (LeftMotor <> pLeftMotor or RightMotor <> pRightMotor or MoveTime <> pMoveTime or pMoveTime <> 0)
+    if (MoveTime)
+      s2.move_now(LeftMotor * MoveTime * FullCircle / 1_024_000, RightMotor * MoveTime * FullCircle / 1_024_000, MoveTime << 1, (||LeftMotor #> ||RightMotor <# 255) >> 4, 0)
+      s2.wait_stop
+    else
+      s2.wheels_now(LeftMotor, RightMotor, 0)
+      waitcnt(cnt + clkfreq / 10)
+    pLeftMotor := LeftMotor
+    pRightMotor := RightMotor
+    pMoveTime := MoveTime
+
+'---[End of Program]-----------------------------------------------------------
 

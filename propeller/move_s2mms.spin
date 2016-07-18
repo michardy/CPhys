@@ -47,7 +47,4 @@ PUB Green
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
     s2mms.move_timed_mms(6.0,0.00,4.0)
-    ReadObstacle
-    if (LeftObstacle == 1 and RightObstacle == 1)
-      s2mms.move_timed_mms(-6.0,0.00,2.0)
-    s2mms.move_timed_mms(6.0,0.00,3.0)
+    s2mms.move_timed_mms(-6.0,0.00,3.0)

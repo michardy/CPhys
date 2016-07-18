@@ -117,7 +117,7 @@ def move(speed, time, list_name=commands, file_name="stuCodeBayS2.py"): #move ad
     if spaces(string, file_name) != 0:
         for i in range(spaces(string, file_name)//2):
             command += " "
-    command += "MotorSet("
+    command += "s2.wheels_now("
     command += str(speed)
     command += ", "
     command += str(speed)

@@ -43,8 +43,7 @@ PUB Obstacler | side
 
 PUB Green
 
-  MotorSet(128, 128, 5000)
-  MotorSet(0, 0, 5000)
-  MotorSet(-128, -128, 5000)
-  MotorSet(128, 128, 5000)
+  s2.wheels_now(128, 128, 5000)
+  s2.wheels_now(-128, -128, 5000)
+  s2.wheels_now(128, 128, 5000)
 

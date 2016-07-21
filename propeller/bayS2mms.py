@@ -40,7 +40,10 @@ import ctypes
 
 def S2tbSend_To_S2(commands):    
     spinfile = "move_s2mms.spin"
-    ctype_spinfile = ctypes.c_char_p(spinfile)
+    try:
+        ctype_spinfile = ctypes.c_char_p(spinfile)
+    except TypeError:
+        ctype_spinfile = ctypes.c_char_p(spinfile.encode('utf-8'))
     ms2 = open(spinfile,"w")
     ms2.write("CON\n\n")
     ms2.write("_clkmode      = xtal1 + pll16x\n")

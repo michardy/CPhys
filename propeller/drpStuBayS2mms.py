@@ -8,12 +8,12 @@
 #############################################################
 # If you want your program to work, don't change this part! #
 #                                                           #
-from bayS2mms import speed_up_to                            #
-from bayS2mms import cruise_at                              #
-from bayS2mms import stop_from                              #
-from bayS2mms import pause_for                              #
-from bayS2mms import end_program                            #
-from bayS2mms import commands                               #
+from drpS2mms import speed_up_to                            #
+from drpS2mms import cruise_at                              #
+from drpS2mms import stop_from                              #
+from drpS2mms import pause_for                              #
+from drpS2mms import end_program                            #
+from drpS2mms import commands                               #
 #                                                           #
 #############################################################
 ## To control your robot, you will be sending it a list of  #

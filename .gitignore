@@ -1,0 +1,5 @@
+#ignore python bytecode files
+*.pyc
+
+#ignore python 3.5 catch
+**/__pycache__/*

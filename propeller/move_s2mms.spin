@@ -2,8 +2,8 @@ CON
 
 _clkmode      = xtal1 + pll16x
 _xinfreq      = 5_000_000
-OBJ
 
+OBJ
   s2mms : "s2mms"
 
 PUB start

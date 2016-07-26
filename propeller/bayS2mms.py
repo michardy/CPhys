@@ -103,42 +103,86 @@ def S2tbSend_To_S2(commands):
      
 commands = []
 
-def get_line_number(phrase, file_name):
-    with open(file_name) as f:
-        for i, line in enumerate(f, 1):
-            if phrase in line:
-                return i
+##def get_line_number(phrase, file_name):
+##    with open(file_name) as f:
+##        for i, line in enumerate(f, 1):
+##            if phrase in line:
+##                return i
+##
+##def spaces(phrase, file_name="stuCodeBayS2mms.py"):
+##    line_number = get_line_number(phrase, file_name)
+##    with open(file_name) as afile:
+##        line_lengths = [len(line) - len(line.lstrip()) for line in afile]
+##    spaces = line_lengths[line_number - 1]
+##    return spaces
 
-def spaces(phrase, file_name="stuCodeBayS2mms.py"):
-    line_number = get_line_number(phrase, file_name)
-    with open(file_name) as afile:
-        line_lengths = [len(line) - len(line.lstrip()) for line in afile]
-    spaces = line_lengths[line_number - 1]
-    return spaces
-
-def move(speed, time, list_name=commands, file_name="stuCodeBayS2mms.py"): #move adds an item to list_name
+def move(speed, time_interval, list_name=commands): #move adds an item to list_name
     command = ""
-    string = "move(" + str(speed) + "0, " + str(time)
-    if spaces(string, file_name) != 0:
-        for i in range(spaces(string, file_name)//2):
-            command += " "
+##    string = "move(" + str(speed) + "0, " + str(time)
+##    if spaces(string, file_name) != 0:
+##        for i in range(spaces(string, file_name)//2):
+##            command += " "
     command += "s2mms.move_timed_mms("
     command += str(speed)
     command += ",0.00,"
-    command += str(time)
+    command += str(time_interval)
     command += ")\n"
     list_name += [command]
         
-def pause(time, list_name=commands):
+def accel(initial_speed, acceleration, time_interval, list_name=commands):
+    command = ""
+    command += "s2mms.move_timed_mms("
+    command += str(initial_speed)
+    command += ", "
+    command += str(acceleration)
+    command += ", "
+    command += str(time_interval)
+    command += ")\n"
+    list_name += [command]
+        
+def speed_up_to(final_speed, time_interval, list_name=commands):
+    command = ""
+    command += "s2mms.move_timed_mms("
+    command += str(0.00)
+    command += ", "
+    command += str(final_speed/time_interval)
+    command += ", "
+    command += str(time_interval)
+    command += ")\n"
+    list_name += [command]
+
+def cruise_at(cruising_speed, time_interval, list_name=commands):
+    command = ""
+    command += "s2mms.move_timed_mms("
+    command += str(cruising_speed)
+    command += ", "
+    command += str(0.00)
+    command += ", "
+    command += str(time_interval)
+    command += ")\n"
+    list_name += [command]
+
+def stop_from(initial_speed, time_interval, list_name=commands):
+    command = ""
+    command += "s2mms.move_timed_mms("
+    command += str(initial_speed)
+    command += ", "
+    command += str(-initial_speed/time_interval)
+    command += ", "
+    command += str(time_interval)
+    command += ")\n"
+    list_name += [command]
+
+def pause_for(time, list_name=commands):
     move(0.00, time, list_name)
 
-def obstacle(list_name=commands):
-    command = "ReadObstacle\n"
-    list_name += [command]
-    command2 = "if (LeftObstacle == 1 and RightObstacle == 1)\n"
-    list_name += [command2]
-    return True
-
+##def obstacle(list_name=commands):
+##    command = "ReadObstacle\n"
+##    list_name += [command]
+##    command2 = "if (LeftObstacle == 1 and RightObstacle == 1)\n"
+##    list_name += [command2]
+##    return True
+##
 def end_program(list_name=commands):
     S2tbSend_To_S2(list_name)
 

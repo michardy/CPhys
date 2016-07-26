@@ -8,12 +8,12 @@
 #############################################################
 # If you want your program to work, don't change this part! #
 #                                                           #
-from drpS2mms import speed_up_to                            #
-from drpS2mms import cruise_at                              #
-from drpS2mms import stop_from                              #
-from drpS2mms import pause_for                              #
-from drpS2mms import end_program                            #
-from drpS2mms import commands                               #
+from drpBayS2mms import speed_up_to                         #
+from drpBayS2mms import cruise_at                           #
+from drpBayS2mms import stop_from                           #
+from drpBayS2mms import pause_for                           #
+from drpBayS2mms import end_program                         #
+from drpBayS2mms import commands                            #
 #                                                           #
 #############################################################
 ## To control your robot, you will be sending it a list of  #
@@ -27,7 +27,7 @@ from drpS2mms import commands                               #
 ##                                                          #
 ## Initially, the robot is stationary.  So that it does not #
 ## take off while you are still pushing the blue button,    #
-## it is a good idea to enter:                               #
+## it is a good idea to enter:                              #
 ##                                                          #
 ##    pause_for(Dt)                                         #
 ##                                                          #

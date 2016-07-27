@@ -29,6 +29,9 @@ def saveP():
     with open(fname, "w") as f:
         f.write(text.get("1.0",END))
 
+def runS():
+    program.run(text.get("1.0",END), 1)#Run ram only
+
 def runP():
     program.run(text.get("1.0",END))
 
@@ -37,13 +40,13 @@ mbar = Menu(root)
 fm = Menu(mbar)
 fm.add_command(label="Open Program", command=openP)
 fm.add_command(label="Save Program", command=saveP)
-fm.add_command(label="Run Program", command=runP)
 mbar.add_cascade(label="File", menu=fm)
 root.config(menu=mbar)
-#mbar.pack()
+rm = Menu(mbar)
+#rm.add_command(label="Run Shell", command=runS)
+rm.add_command(label="Run Program", command=runP)
+mbar.add_cascade(label="Run", menu=rm)
 
-text.pack()
-
-#f.pack()
+text.pack(expand=True, fill=BOTH)
 
 root.mainloop()

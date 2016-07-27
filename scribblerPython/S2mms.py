@@ -164,7 +164,8 @@ PUB Green
         command = "ReadObstacle\n"
         self.__commandL[len(self.__commandL)-2] = command
         command2 = "(LeftObstacle == 1 and RightObstacle == 1)\n"
-        self.__commandL[len(self.__commandL)-1] = command2
+        self.__commandL[len(self.__commandL)-1] += command2
+        return True
 
     def __convert(self, inputC):
         for line in inputC.split('\n'):
@@ -188,8 +189,10 @@ PUB Green
                         command += char
                 if command.startswith("if"):
                     self.__commandL.append(self.__pad(2*self.__indent) + "if ")
+                    exec("self."+command[3:len(command)-1])
                 elif command.startswith("elif"):
                     self.__commandL.append(self.__pad(2*self.__indent) + "else if ")
+                    exec("self."+command[5:len(command)-1])
                 elif command.startswith("else:"):
                     self.__commandL.append(self.__pad(2*self.__indent) + "else\n")
                 else:

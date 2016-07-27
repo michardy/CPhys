@@ -53,8 +53,9 @@ s2mms.move_timed_mms(0.0,0.00,1.0)
 s2mms.move_timed_mms(0.0, -3.0, 2.0)
 s2mms.move_timed_mms(-6.0, 0.0, 6.0)
 s2mms.move_timed_mms(-6.0, 3.0, 2.0)
-s2mms.move_timed_mms(0.0,0.00,1.0)
-    if s2mms.move_timed_mms(0.0, -3.0, 2.0)
+ReadObstacle
+(LeftObstacle == 1 and RightObstacle == 1)
+s2mms.move_timed_mms(0.0, -3.0, 2.0)
 s2mms.move_timed_mms(-6.0, 0.0, 6.0)
 s2mms.move_timed_mms(-6.0, 3.0, 2.0)
     else

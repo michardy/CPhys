@@ -43,6 +43,7 @@ class spin:
         self.__indent = 2
         self.__indentation_level = 4
         self.__spinfile = output_file
+        self.__commandL = []
         self.__sCode = '''CON
 
 _clkmode      = xtal1 + pll16x
@@ -105,59 +106,65 @@ PUB Green
 ##      if spaces(string, file_name) != 0:
 ##          for i in range(spaces(string, file_name)//2):
 ##              command += " "
-        command += (self.__pad(2*self.__indent))+"s2mms.move_timed_mms("
+        command += "s2mms.move_timed_mms("
         command += str(speed)
         command += ",0.00,"
         command += str(time_interval)
         command += ")\n"
-        self.__sCode += command
+        self.__commandL[len(self.__commandL)-1] = command
 
     def accel(self, initial_speed, acceleration, time_interval):
         command = ""
-        command += (self.__pad(2*self.__indent))+"s2mms.move_timed_mms("
+        command += "s2mms.move_timed_mms("
         command += str(initial_speed)
         command += ", "
         command += str(acceleration)
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__sCode += command
-
+        self.__commandL[len(self.__commandL)-1] = command
+        
     def speed_up_to(self, final_speed, time_interval):
         command = ""
-        command += (self.__pad(2*self.__indent))+"s2mms.move_timed_mms("
+        command += "s2mms.move_timed_mms("
         command += str(0.00)
         command += ", "
         command += str(final_speed/time_interval)
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__sCode += command
+        self.__commandL[len(self.__commandL)-1] = command
 
     def cruise_at(self, cruising_speed, time_interval):
         command = ""
-        command += (self.__pad(2*self.__indent))+"s2mms.move_timed_mms("
+        command += "s2mms.move_timed_mms("
         command += str(cruising_speed)
         command += ", "
         command += str(0.00)
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__sCode += command
+        self.__commandL[len(self.__commandL)-1] = command
 
     def stop_from(self, initial_speed, time_interval):
         command = ""
-        command += (self.__pad(2*self.__indent))+"s2mms.move_timed_mms("
+        command += "s2mms.move_timed_mms("
         command += str(initial_speed)
         command += ", "
         command += str(-initial_speed/time_interval)
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__sCode += command
+        self.__commandL[len(self.__commandL)-1] = command
 
     def pause_for(self, time):
         self.move(0.00, time)
+
+    def obstacle(self):
+        command = "ReadObstacle\n"
+        self.__commandL[len(self.__commandL)-2] = command
+        command2 = "(LeftObstacle == 1 and RightObstacle == 1)\n"
+        self.__commandL[len(self.__commandL)-1] = command2
 
     def __convert(self, inputC):
         for line in inputC.split('\n'):
@@ -179,7 +186,15 @@ PUB Green
                         command += char
                     else:
                         command += char
-                exec("self."+command)#Someone will kill me for this
+                if command.startswith("if"):
+                    self.__commandL.append(self.__pad(2*self.__indent) + "if ")
+                elif command.startswith("elif"):
+                    self.__commandL.append(self.__pad(2*self.__indent) + "else if ")
+                elif command.startswith("else:"):
+                    self.__commandL.append(self.__pad(2*self.__indent) + "else ")
+                else:
+                    self.__commandL.append(self.__pad(2*self.__indent))
+                    exec("self."+command)#Someone will kill me for this
 
     def run(self, inputC, run_mode=3):
         self.__convert(inputC)

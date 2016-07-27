@@ -46,11 +46,3 @@ PUB Green
   repeat
     waitcnt(clkfreq + cnt)
     waitpne(|< s2#BUTTON, |< s2#BUTTON,0)
-    s2mms.move_timed_mms(0.0, 3.0, 2.0)
-    s2mms.move_timed_mms(6.0, 0.0, 6.0)
-    s2mms.move_timed_mms(6.0, -3.0, 2.0)
-    s2mms.move_timed_mms(0.0,0.00,1.0)
-    s2mms.move_timed_mms(0.0, -3.0, 2.0)
-    s2mms.move_timed_mms(-6.0, 0.0, 6.0)
-    s2mms.move_timed_mms(-6.0, 3.0, 2.0)
-    s2mms.move_timed_mms(0.0,0.00,1.0)

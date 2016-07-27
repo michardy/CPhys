@@ -25,34 +25,47 @@ from bayS2mms import commands                               #
 ## To include a command in your list, you need to type it   #
 ## into the space below all this text.                      #
 ##                                                          #
-## Initially, the robot is stationary.  So that it doesn’t  #
+## Initially, the robot is stationary.  So that it does not #
 ## take off while you are still pushing the blue button,    #
-## it’s a good idea to enter:                               #
+## it is a good idea to enter:                              #
+##                                                          #
 ##    pause_for(Dt)                                         #
+##                                                          #
 ## where Dt is the number of seconds you want to elapse     #
 ## before the robot starts to move, after you push the blue #
-## button                                                   #
-## First, we have to tell the robot to speed up. To do that #
+## button.                                                  #
+##                                                          #
+## Now, we have to tell the robot to speed up. To do that   #
 ## just enter:                                              #
+##                                                          #
 ##    speed_up_to(v, Dt)                                    #
+##                                                          #
 ## where v is the speed you want to reach and Dt is the     #
 ## number of seconds you want the robot to take to reach    #
 ## that speed.                                              #
 ##                                                          #
-## To tell the robot to cruise at constant speed, enter:    #    
+## To tell the robot to cruise at constant speed, enter:    #
+##                                                          #
 ##    cruise_at(v, Dt)                                      #
+##                                                          #
 ## where v is the cruising speed and Dt is the number of    #
 ## seconds you want the robot to cruise for.                #
 ##                                                          #
-## To get the robot to come to a gentle stop, enter:        #
+## To get the robot to come to a gentle stop (always a good #
+## thing) enter:                                            #
+##                                                          #
 ##    stop_from(v, Dt)                                      #
+##                                                          #
 ## where v is the speed before the robot begins to slow     #
 ## down and Dt is the amount of time you want the robot to  #
 ## take to come to a stop.                                  #
 ##                                                          #
-## If you want the robot to move backwards (or it is moving #
-## backwards and you want it to come to a stop), just put a #
-## negative sign in from of every value v.                  #
+## Note that ordinarily, you will use the same value for v  #
+## in each command.                                         #
+##                                                          #
+## If you want the robot to move backwards (or if it is     #
+## moving backwards and you want it to come to a stop),     #
+## just put a negative sign in front of every value for v.  #
 ##                                                          #
 #############################################################
 

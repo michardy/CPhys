@@ -12,6 +12,8 @@ except ImportError:
 
 from S2mms import spin
 
+program = spin()
+
 root = Tk()
 text = Text(root)
 
@@ -22,7 +24,7 @@ def saveP():
     print("test")
 
 def runP():
-    print(text.get(0, END))
+    program.run(text.get("1.0",END))
 
 #needs cleaning
 mbar = Menu(root)

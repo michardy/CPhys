@@ -181,7 +181,7 @@ PUB Green
                         command += char
                 exec("self."+command)#Someone will kill me for this
 
-    def run(self, inputC):
+    def run(self, inputC, run_mode=3):
         self.__convert(inputC)
         try:
             ctype_spinfile = ctypes.c_char_p(self.__spinfile)
@@ -195,8 +195,7 @@ PUB Green
         libdir = ctypes.c_char_p(os.path.realpath(path))
         prop.SetLibraryPath(libdir)
         prop.CompileSource(ctype_spinfile,True)
-#       prop.DownloadToPropeller(0,1) #store in RAM only, and run
-        prop.DownloadToPropeller(0,3)  #store in RAM and EEPROM, and run
+        prop.DownloadToPropeller(0, run_mode)
         prop.FinalizePropellent
 
 ##def obstacle(list_name=commands):

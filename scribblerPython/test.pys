@@ -8,3 +8,11 @@ speed_up_to(-6.00, 2.00)
 cruise_at(-6.00, 6.00)
 stop_from(-6.00, 2.00)
 pause_for(1.00)
+if obstacle():
+	speed_up_to(-6.00, 2.00)
+	cruise_at(-6.00, 6.00)
+	stop_from(-6.00, 2.00)
+else:
+	speed_up_to(6.00, 2.00)
+	cruise_at(6.00, 6.00)
+	stop_from(6.00, 2.00)

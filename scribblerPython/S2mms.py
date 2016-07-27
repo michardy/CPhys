@@ -191,10 +191,12 @@ PUB Green
                 elif command.startswith("elif"):
                     self.__commandL.append(self.__pad(2*self.__indent) + "else if ")
                 elif command.startswith("else:"):
-                    self.__commandL.append(self.__pad(2*self.__indent) + "else ")
+                    self.__commandL.append(self.__pad(2*self.__indent) + "else\n")
                 else:
                     self.__commandL.append(self.__pad(2*self.__indent))
                     exec("self."+command)#Someone will kill me for this
+        for i in self.__commandL:
+            self.__sCode += i
 
     def run(self, inputC, run_mode=3):
         self.__convert(inputC)

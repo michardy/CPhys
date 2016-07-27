@@ -18,10 +18,16 @@ root = Tk()
 text = Text(root)
 
 def openP():
-   text.insert(INSERT, "test text")
+    fname = TKFD.askopenfilename(title = "Open Program",filetypes = (("Scribbler Python File","*.pys"),("all files","*.*")))
+    data = "File open error"
+    with open(fname, "r") as f:
+        data = f.read()
+    text.insert(INSERT, data)
 
 def saveP():
-    print("test")
+    fname = TKFD.asksaveasfilename(title = "Save Program",filetypes = (("Scribbler Python File","*.pys"),("all files","*.*")))
+    with open(fname, "w") as f:
+        f.write(text.get("1.0",END))
 
 def runP():
     program.run(text.get("1.0",END))

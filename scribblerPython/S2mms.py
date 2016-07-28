@@ -111,7 +111,7 @@ PUB Green
         command += ",0.00,"
         command += str(time_interval)
         command += ")\n"
-        self.__commandL[len(self.__commandL)-1] = command
+        self.__commandL[len(self.__commandL)-1] += command
 
     def accel(self, initial_speed, acceleration, time_interval):
         command = ""
@@ -122,7 +122,7 @@ PUB Green
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__commandL[len(self.__commandL)-1] = command
+        self.__commandL[len(self.__commandL)-1] += command
         
     def speed_up_to(self, final_speed, time_interval):
         command = ""
@@ -133,7 +133,7 @@ PUB Green
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__commandL[len(self.__commandL)-1] = command
+        self.__commandL[len(self.__commandL)-1] += command
 
     def cruise_at(self, cruising_speed, time_interval):
         command = ""
@@ -144,7 +144,7 @@ PUB Green
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__commandL[len(self.__commandL)-1] = command
+        self.__commandL[len(self.__commandL)-1] += command
 
     def stop_from(self, initial_speed, time_interval):
         command = ""
@@ -155,17 +155,16 @@ PUB Green
         command += ", "
         command += str(time_interval)
         command += ")\n"
-        self.__commandL[len(self.__commandL)-1] = command
+        self.__commandL[len(self.__commandL)-1] += command
 
     def pause_for(self, time):
         self.move(0.00, time)
 
     def obstacle(self):
         command = "ReadObstacle\n"
-        self.__commandL[len(self.__commandL)-2] = command
+        self.__commandL[len(self.__commandL)-2] += command
         command2 = "(LeftObstacle == 1 and RightObstacle == 1)\n"
         self.__commandL[len(self.__commandL)-1] += command2
-        return True
 
     def __convert(self, inputC):
         for line in inputC.split('\n'):
@@ -187,11 +186,13 @@ PUB Green
                         command += char
                     else:
                         command += char
-                if command.startswith("if"):
+                if "obstacle()" in line:
+                    self.__commandL.append(self.__pad(2*self.__indent))
+                if command.startswith("if "):
                     self.__commandL.append(self.__pad(2*self.__indent) + "if ")
                     exec("self."+command[3:len(command)-1])
-                elif command.startswith("elif"):
-                    self.__commandL.append(self.__pad(2*self.__indent) + "else if ")
+                elif command.startswith("elif "):
+                    self.__commandL.append(self.__pad(2*self.__indent) + "elseif ")
                     exec("self."+command[5:len(command)-1])
                 elif command.startswith("else:"):
                     self.__commandL.append(self.__pad(2*self.__indent) + "else\n")

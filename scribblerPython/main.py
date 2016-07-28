@@ -12,8 +12,6 @@ except ImportError:
 
 from S2mms import spin
 
-program = spin()
-
 root = Tk()
 text = Text(root)
 
@@ -30,9 +28,11 @@ def saveP():
         f.write(text.get("1.0",END))
 
 def runS():
+    program = spin()
     program.run(text.get("1.0",END), 1)#Run ram only
 
 def runP():
+    program = spin()
     program.run(text.get("1.0",END))
 
 #needs cleaning

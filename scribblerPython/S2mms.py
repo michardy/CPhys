@@ -58,7 +58,6 @@ byte LineThld, LeftLine, RightLine, LeftObstacle, RightObstacle, Self
 byte  Flag_green, Flag_yellow, Flag_orange, Flag_red, Flag_magenta, Flag_purple, Flag_blue, Stalled, obs[3]
 
 OBJ
-
   s2mms : "s2mms"
   S2 : "s2"
 
@@ -77,7 +76,6 @@ PUB start
   repeat
 
 PUB Obstacler | side
-
   repeat
     repeat side from s2#OBS_TX_LEFT to s2#OBS_TX_RIGHT step constant(s2#OBS_TX_RIGHT - s2#OBS_TX_LEFT)
       frqa := 14000 * ObstacleThld + 20607 * (100 - ObstacleThld)
@@ -87,6 +85,19 @@ PUB Obstacler | side
       obs[-(side == s2#OBS_TX_RIGHT) + 1] := ina[s2#OBS_RX] == 0
       dira[side]~
       waitcnt(cnt + clkfreq / 8)
+
+PRI ReadObstacle | l, r
+  l := obstacle(s2#LEFT, ObstacleThld) & 1
+  r := obstacle(s2#RIGHT, ObstacleThld) & 1
+  if (l == LeftObstacle and r == RightObstacle)
+    ObstacleCount := (Obstaclecount + 1) <# 8
+  else
+    ObstacleCount := 1
+    LeftObstacle := l
+    RightObstacle := r
+
+PUB obstacle(side, threshold)
+  return obs[side]
 
 PUB Green
   repeat
@@ -163,7 +174,7 @@ PUB Green
     def obstacle(self):
         command = "ReadObstacle\n"
         self.__commandL[len(self.__commandL)-2] += command
-        command2 = "(LeftObstacle == 1 and RightObstacle == 1)\n"
+        command2 = "LeftObstacle == 1 AND RightObstacle == 1\n"
         self.__commandL[len(self.__commandL)-1] += command2
 
     def __convert(self, inputC):
